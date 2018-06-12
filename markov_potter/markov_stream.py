@@ -2,16 +2,15 @@ from random import randint
 markov= {}
 n=1
 
-with open("elf-names.txt") as f:
+with open("hp.txt") as f:
     for sor in f:
-        sor="_"*n+sor.strip().lower()+"."
-        betu=0
-        for i in range(len(sor)-n):
+        for betu in range(len(sor)-n):
             try:
                 markov[sor[betu:betu+n]].append(sor[betu+n])
             except:
                 markov[sor[betu:betu+n]]=[sor[betu+n]]
-            betu+=1
+                
+print(markov)
                    
 
 def új_név(markov):
