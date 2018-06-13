@@ -6,7 +6,7 @@ def create_markov(filename,order):
         key = ''
         while True: 
             char = f.read(1)
-            if char == '' : break
+            if char == '' : break # end of file
             try:
                 markov[key].append(char)
             except:
