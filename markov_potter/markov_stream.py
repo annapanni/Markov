@@ -1,35 +1,28 @@
 from random import randint
+markov= {}
+n=1
 
-def create_markov(filename,order):
-    markov= {}
-    with open(filename) as f:
-        key = ''
-        while True: 
-            char = f.read(1)
-            if char == '' : break
+with open("hp.txt") as f:
+    for sor in f:
+        for betu in range(len(sor)-n):
             try:
-                markov[key].append(char)
+                markov[sor[betu:betu+n]].append(sor[betu+n])
             except:
-                markov[key] = [char]
-            key += char
-            key = key[-order:] # keep n character for key
-    return markov
+                markov[sor[betu:betu+n]]=[sor[betu+n]]
                 
-def new_text(markov, order, db=300):
-    char = ''
-    par = char
+print(markov)
+                   
 
-    for _ in range(db):
-        key = par[-order:]
-        vals = markov[key]
-        char = vals[randint(0, len(vals)-1)]
-        par += char
+def új_név(markov):
+    név="_"*n
+    while név[-1]!=".":
+        betuk=név[-n:]
+        vals=markov[betuk]
+        név+=vals[randint(0,len(vals)-1)]
+    új=név[n:-1]
+    if len(új)<3:
+        új=új_név(markov)
+    return új
 
-    return par
-
-
-#for _ in range(3): # 3 new paragraph.
-
-n=3
-m = create_markov("hp.txt",n)
-print(new_text(m, n, 2000))
+for i in range(10):
+    print (új_név(markov))
